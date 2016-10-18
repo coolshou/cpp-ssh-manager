@@ -2,7 +2,7 @@ dist: trusty
 
 before_install:
     - sudo add-apt-repository --yes ppa:beineri/opt-qt57-trusty
-    - sudo apt-get install -qq g++-6 qt57-meta-full
+    - sudo apt-get install -qq qt57-meta-full
     
 script:
     - qmake
