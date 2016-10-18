@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/config">
+        <file>config.dist.json</file>
+    </qresource>
+</RCC>

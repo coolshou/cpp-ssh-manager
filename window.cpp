@@ -17,55 +17,66 @@
 #include <QStringListModel>
 #include <QListWidget>
 #include <QProcess>
+#include <QFontDatabase>
+#include <QFile>
+#include <QFileInfo>
 
 /**
  * @brief Window::Window
  */
 Window::Window()
 {
-    config = loadConfig();
-    setupUi(config);
-    updateConnections();
+    this->config = this->loadConfig();
+    this->setupUi(this->config);
+    this->updateConnections();
 }
 
-
+/**
+ * SLOT ListViewItemSelected
+ * @brief Window::onListViewItemSelected
+ * @param item
+ */
 void Window::onListViewItemSelected(QListWidgetItem *item)
 {
     Connection con = qvariant_cast<Connection>(item->data(Qt::UserRole));
     QProcess *process = new QProcess(this);
-    QString cmd =
-            QString(config->command.ssh->join(" "))
-            + " "
-            + con.host
-            + " -p "
-            + QString::number(con.port)
-            + " "
-            + QString(con.args.join(" "))
-    ;
+    QString cmd = QString(config->command.ssh->join(" "));
+    cmd = cmd.replace("$host", QString(con.host));
+    cmd = cmd.replace("$port", QString::number(con.port));
+    cmd += QString(con.args.join(" "));
 
     process->start(cmd);
-
 }
 
-void Window::onBtnSettingsClicked(bool clicked)
+/**
+ * SLOT Settings Button Cliked
+ * @brief Window::onBtnSettingsClicked
+ */
+void Window::onBtnSettingsPressed()
 {
     QString filename = "/.sshManager.config.json";
     QDir *dir = new QDir();
     QString filepath = dir->homePath() + filename;
 
     QProcess *process = new QProcess(this);
-    QString cmd = QString(config->command.edit->join(" ")) + " " + filepath;
+    QString cmd = QString(config->command.edit->join(" "));
+    cmd = cmd.replace("$file", filepath);
 
     process->start(cmd);
 }
 
-void Window::onBtnReloadClicked(bool clicked)
+/**
+ * SLOT Reload Button Clicked
+ * @brief Window::onBtnReloadClicked
+ */
+void Window::onBtnReloadPressed()
 {
     config = loadConfig();
     updateConnections();
 }
 
 /**
+ * Setup Window UI
  * @brief Window::setupUi
  */
 void Window::setupUi(Config *config)
@@ -95,11 +106,12 @@ void Window::setupUi(Config *config)
     setWindowIcon(QIcon("icon.png"));
 
     connect(listView, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(onListViewItemSelected(QListWidgetItem*)));
-    connect(btnSettings, SIGNAL(clicked(bool)), this, SLOT(onBtnSettingsClicked(bool)));
-    connect(btnReload, SIGNAL(clicked(bool)), this, SLOT(onBtnReloadClicked(bool)));
+    connect(btnSettings, SIGNAL(pressed()), this, SLOT(onBtnSettingsPressed()));
+    connect(btnReload, SIGNAL(pressed()), this, SLOT(onBtnReloadPressed()));
 }
 
 /**
+ * Load Application configuration from JSON file
  * @brief Window::loadConfig
  */
 Config *Window::loadConfig()
@@ -108,16 +120,24 @@ Config *Window::loadConfig()
     QDir *dir = new QDir();
     QString filepath = dir->homePath() + filename;
 
+    if (!fileExists(filepath)) {
+        QFile::copy(":/config/config.dist.json", filepath);
+    }
+
     QString jsonString = getSettingsJsonString(filepath);
 
     QJsonDocument itemDoc = QJsonDocument::fromJson(jsonString.toUtf8());
     QJsonObject itemObject = itemDoc.object();
 
+    if (itemObject.isEmpty()) {
+        showErrorAlert("Invalid JSON in config file " + filepath);
+    }
+
     QString required[3] = {"command", "window","connections"};
 
     for (QString item : required) {
         if (!itemObject.contains(item)) {
-            this->showErrorAlert("Invalid config! No section [" + item + "]");
+            this->showErrorAlert("Invalid config! No section [" + item + "] in " + filepath);
         }
     }
 
@@ -153,6 +173,7 @@ Config *Window::loadConfig()
 }
 
 /**
+ * Return JSON string contents of file
  * @brief Window::getSettingsJsonString
  * @param filename
  * @return
@@ -169,6 +190,11 @@ QString Window::getSettingsJsonString(QString filename)
     return val;
 }
 
+/**
+ * Show error alert to user
+ * @brief Window::showErrorAlert
+ * @param message
+ */
 void Window::showErrorAlert(QString message)
 {
     QMessageBox alert;
@@ -177,6 +203,10 @@ void Window::showErrorAlert(QString message)
     exit(1);
 }
 
+/**
+ * Update connection list
+ * @brief Window::updateConnections
+ */
 void Window::updateConnections()
 {
     listView->clear();
@@ -189,4 +219,15 @@ void Window::updateConnections()
 
         listView->addItem(item);
     }
+}
+
+/**
+ * @brief fileExists
+ * @param path
+ * @return
+ */
+bool Window::fileExists(QString path) {
+    QFileInfo check_file(path);
+    // check if file exists and if yes: Is it really a file and no directory?
+    return check_file.exists() && check_file.isFile();
 }

@@ -25,3 +25,6 @@ HEADERS += \
 
 DISTFILES += \
     /icon.png
+
+RESOURCES += \
+    resources.qrc

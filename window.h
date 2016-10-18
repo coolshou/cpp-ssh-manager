@@ -15,8 +15,8 @@ public:
 
 public slots:
         void onListViewItemSelected(QListWidgetItem *item);
-        void onBtnSettingsClicked(bool clicked);
-        void onBtnReloadClicked(bool clicked);
+        void onBtnSettingsPressed();
+        void onBtnReloadPressed();
 private:
     void setupUi(Config *config);
     Config *loadConfig();
@@ -28,6 +28,7 @@ private:
     Config *config;
     QListWidget *listView;
     void updateConnections();
+    bool fileExists(QString path);
 };
 
 #endif // WINDOW_H
