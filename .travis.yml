@@ -2,6 +2,7 @@ dist: xenial
 
 before_install:
     - sudo add-apt-repository ppa:beineri/opt-qt57-xenial --yes
+    - sudo apt-get update
     - sudo apt-get install -y qt57base qt57declarative
     
 script:
