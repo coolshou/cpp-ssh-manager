@@ -1,11 +1,9 @@
-dist: xenial
+dist: trusty
 
 before_install:
-    - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
-    - sudo apt-get update -qq
-    - sudo apt-get install -qq qt5-qmake qtdeclarative5-dev
+    - sudo add-apt-repository --yes ppa:beineri/opt-qt57-trusty
+    - sudo apt-get install -qq g++-6 qt57-meta-full
     
 script:
-    - qmake -qt=qt5 -v
-    - qmake -qt=qt5
+    - qmake
     - make
