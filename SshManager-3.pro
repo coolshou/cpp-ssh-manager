@@ -24,7 +24,9 @@ HEADERS += \
     connectionlistmodel.h
 
 DISTFILES += \
-    /icon.png
+    /icon.png \
+    README.md \
+    screenshot.png
 
 RESOURCES += \
     resources.qrc
