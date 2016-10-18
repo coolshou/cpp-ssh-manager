@@ -26,7 +26,8 @@ HEADERS += \
 DISTFILES += \
     /icon.png \
     README.md \
-    screenshot.png
+    screenshot.png \
+    .travis.yml
 
 RESOURCES += \
     resources.qrc
