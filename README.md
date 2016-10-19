@@ -1,6 +1,8 @@
 # Ubuntu Desktop (GUI) ssh manager
 GUI ssh manager for Ubuntu 16.04 (not tested on below versions)
 
+![travis-ci](https://api.travis-ci.org/Doka-NT/cpp-ssh-manager.svg?branch=master)
+
 ![alt tag](https://raw.githubusercontent.com/Doka-NT/cpp-ssh-manager/master/screenshot.png)
 # Requirements
 - qt 5.7
