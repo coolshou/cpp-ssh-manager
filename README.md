@@ -31,3 +31,5 @@ make check
 # Config
 config.json file will be created after first run.
 Edit it as you need.
+
+See [JSON config example](https://github.com/Doka-NT/cpp-ssh-manager/blob/master/config.dist.json)
