@@ -7,10 +7,20 @@ GUI ssh manager for Ubuntu 16.04 (not tested on below versions)
 # Requirements
 - qt 5.7
 
-# Make
+# Install
 ```bash
-qmake SshManager-3.pro
+# Install qt57
+sudo add-apt-repository ppa:beineri/opt-qt57-xenial
+sudo apt-get update
+sudo apt-get install qt57base
+
+# cd in project root directory
+
+# Make
+source /opt/qt57/bin/qt57-env.sh
+qmake -r
 make
+make check
 ```
 
 # Run
