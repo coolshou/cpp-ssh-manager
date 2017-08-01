@@ -7,6 +7,8 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
+INCLUDE+=src
+
 SOURCES += src/main.cpp \
     src/window.cpp \
     src/config.cpp \

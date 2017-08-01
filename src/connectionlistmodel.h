@@ -2,7 +2,7 @@
 #define CONNECTIONLISTMODEL_H
 
 #include <QAbstractItemModel>
-#include <connection.h>
+#include "connection.h"
 
 class ConnectionListModel : public QAbstractItemModel
 {

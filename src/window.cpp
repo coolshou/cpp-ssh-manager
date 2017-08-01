@@ -10,9 +10,9 @@
 #include <QJsonObject>
 #include <QDebug>
 #include <QMessageBox>
-#include <config.h>
+
 #include <QJsonArray>
-#include <connectionlistmodel.h>
+
 #include <QStandardItemModel>
 #include <QStringListModel>
 #include <QListWidget>

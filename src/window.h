@@ -3,8 +3,10 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
-#include <config.h>
 #include <QListWidgetItem>
+
+#include "config.h"
+#include "connectionlistmodel.h"
 
 class Window : public QWidget
 {

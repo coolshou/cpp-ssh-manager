@@ -1,10 +1,12 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <windowconfig.h>
-#include <commandconfig.h>
-#include <connection.h>
 #include <qjsonarray.h>
+
+#include "windowconfig.h"
+#include "commandconfig.h"
+#include "connection.h"
+
 
 class Config
 {
