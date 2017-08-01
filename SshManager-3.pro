@@ -7,21 +7,21 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += main.cpp \
-    window.cpp \
-    config.cpp \
-    windowconfig.cpp \
-    commandconfig.cpp \
-    connection.cpp \
-    connectionlistmodel.cpp
+SOURCES += src/main.cpp \
+    src/window.cpp \
+    src/config.cpp \
+    src/windowconfig.cpp \
+    src/commandconfig.cpp \
+    src/connection.cpp \
+    src/connectionlistmodel.cpp
 
 HEADERS += \
-    window.h \
-    config.h \
-    windowconfig.h \
-    commandconfig.h \
-    connection.h \
-    connectionlistmodel.h
+    src/window.h \
+    src/config.h \
+    src/windowconfig.h \
+    src/commandconfig.h \
+    src/connection.h \
+    src/connectionlistmodel.h
 
 DISTFILES += \
     /icon.png \
